@@ -6,8 +6,10 @@ class Locker(
 ) {
     private val store = mutableMapOf<Ticket, Bag>()
 
+    fun isFull() = store.size >= capacity
+
     fun save(bag: Bag): Ticket {
-        if (store.size >= capacity) throw LockerIsFullException()
+        if (isFull()) throw LockerIsFullException()
 
         val ticket = Ticket(type)
         store[ticket] = bag
