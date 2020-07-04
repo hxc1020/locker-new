@@ -21,4 +21,13 @@ class LockerTest : StringSpec({
             locker.save(Bag(SizeType.M))
         }
     }
+
+    "should get bag when take given S size locker and valid ticket" {
+        val locker = Locker(1, SizeType.S)
+        val ticket = locker.save(Bag(SizeType.S))
+
+        val bag = locker.take(ticket)
+
+        assert(bag != null)
+    }
 })

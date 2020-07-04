@@ -1,3 +1,3 @@
 package org.example.tdd
 
-class Ticket
+class Ticket(val type: SizeType?)
