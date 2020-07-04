@@ -17,7 +17,7 @@ class Locker(
     }
 
     fun take(ticket: Ticket): Bag? {
-        if (ticket.type != type) throw SizeTypeMissMatchException()
+        if (ticket.type != type) throw TicketTypeMissMatchException()
         if (store.containsKey(ticket).not()) throw TicketInvalidException()
 
         return store.remove(ticket)
