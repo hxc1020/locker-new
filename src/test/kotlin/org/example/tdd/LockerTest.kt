@@ -30,4 +30,13 @@ class LockerTest : StringSpec({
 
         assert(bag != null)
     }
+
+    "should throw SizeTypeMissMatchException when take given S size locker and valid M ticket" {
+        val locker = Locker(1, SizeType.S)
+        locker.save(Bag(SizeType.S))
+
+        shouldThrow<SizeTypeMissMatchException> {
+            locker.take(Ticket(SizeType.M))
+        }
+    }
 })
