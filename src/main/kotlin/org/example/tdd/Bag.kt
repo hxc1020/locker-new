@@ -1,3 +1,3 @@
 package org.example.tdd
 
-class Bag(type: SizeType)
+class Bag(val type: SizeType)

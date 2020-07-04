@@ -9,6 +9,7 @@ class Locker(
     fun isFull() = store.size >= capacity
 
     fun save(bag: Bag): Ticket {
+        if (bag.type != type) throw SizeTypeMissMatchException()
         if (isFull()) throw LockerIsFullException()
 
         val ticket = Ticket(type)
