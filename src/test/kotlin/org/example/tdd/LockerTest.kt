@@ -39,4 +39,13 @@ class LockerTest : StringSpec({
             locker.take(Ticket(SizeType.M))
         }
     }
+
+    "should throw TicketInvalidException when take given S size locker and invalid ticket" {
+        val locker = Locker(1, SizeType.S)
+        locker.save(Bag(SizeType.S))
+
+        shouldThrow<TicketInvalidException> {
+            locker.take(Ticket(SizeType.S))
+        }
+    }
 })
