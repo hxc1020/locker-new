@@ -98,13 +98,41 @@ class LockerRobotManagerTest : StringSpec({
     }
 
     """should get bag when manager take
-        given valid ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        given valid S ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
     """ {
         val locker = Locker(1, SizeType.S)
         val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
         val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
         val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
         val givenBag = Bag(SizeType.S)
+
+        val ticket = manager.save(givenBag)
+
+        manager.take(ticket) shouldBe givenBag
+    }
+
+    """should get bag when manager take
+        given valid M ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        val givenBag = Bag(SizeType.M)
+
+        val ticket = manager.save(givenBag)
+
+        manager.take(ticket) shouldBe givenBag
+    }
+
+    """should get bag when manager take
+        given valid L ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        val givenBag = Bag(SizeType.L)
 
         val ticket = manager.save(givenBag)
 

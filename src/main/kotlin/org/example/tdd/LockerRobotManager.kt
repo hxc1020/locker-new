@@ -14,6 +14,11 @@ class LockerRobotManager(
     }
 
     fun take(ticket: Ticket): Bag? {
-        return lockers.first().take(ticket)
+        return when (ticket.type) {
+            SizeType.S -> lockers.first().take(ticket)
+            SizeType.M -> primaryLockerRobots.first().take(ticket)
+            SizeType.L -> superLockerRobots.first().take(ticket)
+            else -> null
+        }
     }
 }
