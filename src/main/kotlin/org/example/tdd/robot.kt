@@ -1,41 +1,43 @@
 package org.example.tdd
 
-class PrimaryLockerRobot(private val lockers: List<Locker>) {
-    private val acceptType = SizeType.M
-
-    init {
-        if (lockers.any { it.type != acceptType })
-            throw AcceptedLockerTypeWrongException("PrimaryLockerRobot can only config M Locker!")
-    }
-
-    fun save(bag: Bag): Ticket {
-        val availableLocker = lockers.firstOrNull { it.isFull().not() } ?: throw LockerIsFullException()
-        return availableLocker.save(bag)
-    }
-
+abstract class Robot(
+        private val lockers: List<Locker>,
+        private val acceptType: SizeType
+) {
     fun take(ticket: Ticket): Bag? {
         val lockerWhichHasBag = lockers.firstOrNull { it.hasBag(ticket) } ?: throw TicketInvalidException()
         return lockerWhichHasBag.take(ticket)
+    }
+
+    protected fun checkAcceptLockerType() {
+        if (lockers.any { it.type != acceptType })
+            throw AcceptedLockerTypeWrongException("${this::class.simpleName} can only config ${acceptType.name} Locker!")
+    }
+
+    protected fun availableLockers(): List<Locker> {
+        val availableLockers = lockers.filter { it.isFull().not() }
+        if (availableLockers.isEmpty()) throw LockerIsFullException()
+        return availableLockers
     }
 }
 
-class SuperLockerRobot(private val lockers: List<Locker>) {
-    private val acceptType = SizeType.L
-
+class PrimaryLockerRobot(lockers: List<Locker>) : Robot(lockers, SizeType.M) {
     init {
-        if (lockers.any { it.type != acceptType })
-            throw AcceptedLockerTypeWrongException("SuperLockerRobot can only config L Locker!")
+        checkAcceptLockerType()
     }
 
     fun save(bag: Bag): Ticket {
-        val availableLockers = lockers.filter { it.isFull().not() }
-        if (availableLockers.isEmpty()) throw LockerIsFullException()
-        return availableLockers.maxBy { it.availableCapacity() }!!.save(bag)
+        return availableLockers().first().save(bag)
+    }
+}
+
+class SuperLockerRobot(lockers: List<Locker>) : Robot(lockers, SizeType.L) {
+
+    init {
+        checkAcceptLockerType()
     }
 
-    fun take(ticket: Ticket): Bag? {
-        val lockerWhichHasBag = lockers.firstOrNull { it.hasBag(ticket) } ?: throw TicketInvalidException()
-        return lockerWhichHasBag.take(ticket)
+    fun save(bag: Bag): Ticket {
+        return availableLockers().maxBy { it.availableCapacity() }!!.save(bag)
     }
-
 }
