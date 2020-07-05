@@ -1,5 +1,6 @@
 package org.example.tdd
 
+import io.kotlintest.shouldNotBe
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.StringSpec
 
@@ -10,7 +11,7 @@ class LockerTest : StringSpec({
 
         val ticket = locker.save(Bag(SizeType.S))
 
-        assert(ticket != null)
+        ticket shouldNotBe null
     }
 
     "should throw LockerIsFullException when save bag given M size locker and available capacity is 0" {
@@ -36,7 +37,7 @@ class LockerTest : StringSpec({
 
         val bag = locker.take(ticket)
 
-        assert(bag != null)
+        bag shouldNotBe null
     }
 
     "should throw SizeTypeMissMatchException when take given S size locker and valid M ticket" {
