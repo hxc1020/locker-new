@@ -16,4 +16,16 @@ class SuperLockerRobotTest : StringSpec({
 
         locker2.take(ticket) shouldBe givenBag
     }
+
+    """should saved by locker1 and get ticket when robot save 
+        given SuperLockerRobot manage L locker1 and locker2 and available capacity is 3 and 2"""{
+        val locker1 = Locker(3, SizeType.L)
+        val locker2 = Locker(2, SizeType.L)
+        val robot = SuperLockerRobot(listOf(locker1, locker2))
+        val givenBag = Bag(SizeType.L)
+
+        val ticket = robot.save(givenBag)
+
+        locker1.take(ticket) shouldBe givenBag
+    }
 })
