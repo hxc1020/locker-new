@@ -72,6 +72,6 @@ class PrimaryLockerRobotTest : StringSpec({
         val exception = shouldThrowExactly<AcceptedLockerTypeWrongException> {
             PrimaryLockerRobot(listOf(locker1))
         }
-        exception.message shouldStartWith  "Primary Locker Robot"
+        exception.message shouldStartWith  "PrimaryLockerRobot"
     }
 })
