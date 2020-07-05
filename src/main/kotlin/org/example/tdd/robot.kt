@@ -18,3 +18,10 @@ class PrimaryLockerRobot(private val lockers: List<Locker>) {
         return lockerWhichHasBag.take(ticket)
     }
 }
+
+class SuperLockerRobot(private val lockers: List<Locker>) {
+    fun save(bag: Bag): Ticket {
+        return lockers[1].save(bag)
+    }
+
+}
