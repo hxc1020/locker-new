@@ -9,13 +9,17 @@ abstract class Robot(
         return lockerWhichHasBag.take(ticket)
     }
 
+    fun available() = lockers.any { it.available() }
+
+    fun hasBag(ticket: Ticket) = lockers.any { it.hasBag(ticket) }
+
     protected fun checkAcceptLockerType() {
         if (lockers.any { it.type != acceptType })
             throw AcceptedLockerTypeWrongException("${this::class.simpleName} can only config ${acceptType.name} Locker!")
     }
 
     protected fun availableLockers(): List<Locker> {
-        val availableLockers = lockers.filter { it.isFull().not() }
+        val availableLockers = lockers.filter { it.available() }
         if (availableLockers.isEmpty()) throw LockerIsFullException()
         return availableLockers
     }

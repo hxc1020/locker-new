@@ -6,7 +6,7 @@ class Locker(
 ) {
     private val store = mutableMapOf<Ticket, Bag>()
 
-    fun isFull() = store.size >= capacity
+    fun available() = store.size < capacity
 
     fun hasBag(ticket: Ticket) = store.contains(ticket)
 
@@ -14,7 +14,7 @@ class Locker(
 
     fun save(bag: Bag): Ticket {
         if (bag.type != type) throw SizeTypeMissMatchException()
-        if (isFull()) throw LockerIsFullException()
+        if (available().not()) throw LockerIsFullException()
 
         val ticket = Ticket(type)
         store[ticket] = bag
