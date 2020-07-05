@@ -25,14 +25,12 @@
 | PrimaryLockerRobot 管理M Locker1 和Locker2，Locker1无可用容量 | 存包      | 包存入Locker2，获得票                                 |
 | PrimaryLockerRobot 管理M Locker1 和Locker2，Locker1都无可用容量 | 存包      | 提示Locker已满                                        |
 | PrimaryLockerRobot 管理M Locker1 和Locker2，有效的M票        | 取包      | 取包成功                                              |
-| PrimaryLockerRobot 管理M Locker1 和Locker2，有效的S票        | 取包      | 提示票类型不匹配                                      |
 | PrimaryLockerRobot 管理M Locker1 和Locker2，无效票           | 取包      | 提示票无效                                            |
 | PrimaryLockerRobot和S型Locker                                | 配置Robot | Locker类型不匹配，PrimaryLockerRobot只能配置M型Locker |
 | SuperLockerRobot 管理L Locker1 和Locker2，可用容量和容量分别为 2,2; 3,3 | 存包      | 包存入Locker2，获得票                                 |
 | SuperLockerRobot 管理L Locker1 和Locker2，，可用容量和容量分别为 3,3; 2,2 | 存包      | 包存入Locker1，获得票                                 |
 | SuperLockerRobot 管理L Locker1 和Locker2，Locker1都无可用容量 | 存包      | 提示Locker已满                                        |
 | SuperLockerRobot 管理L Locker1 和Locker2，有效的L票          | 取包      | 取包成功                                              |
-| SuperLockerRobot 管理L Locker1 和Locker2，有效的S票          | 取包      | 提示票类型不匹配                                      |
 | SuperLockerRobot 管理L Locker1 和Locker2，无效票             | 取包      | 提示票无效                                            |
 | SuperLockerRobot和S型Locker                                  | 配置Robot | Locker类型不匹配，SuperLockerRobot只能配置L型Locker   |
 | LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，都有可用容量 | 存S型包   | 存包成功，包存入Locker                                |
