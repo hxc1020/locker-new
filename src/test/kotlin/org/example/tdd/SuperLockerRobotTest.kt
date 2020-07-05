@@ -42,4 +42,15 @@ class SuperLockerRobotTest : StringSpec({
             robot.save(Bag(SizeType.L))
         }
     }
+
+    "should get bag when robot take given SuperLockerRobot manage L locker1 and locker2 and valid L ticket" {
+        val locker1 = Locker(1, SizeType.L)
+        val locker2 = Locker(1, SizeType.L)
+        val robot = SuperLockerRobot(listOf(locker1, locker2))
+        val givenBag = Bag(SizeType.L)
+
+        val ticket = robot.save(givenBag)
+
+        robot.take(ticket) shouldBe givenBag
+    }
 })

@@ -26,4 +26,8 @@ class SuperLockerRobot(private val lockers: List<Locker>) {
         return availableLockers.maxBy { it.availableCapacity() }!!.save(bag)
     }
 
+    fun take(ticket: Ticket): Bag? {
+        return lockers.first { it.hasBag(ticket) }.take(ticket)
+    }
+
 }
