@@ -21,7 +21,9 @@ class PrimaryLockerRobot(private val lockers: List<Locker>) {
 
 class SuperLockerRobot(private val lockers: List<Locker>) {
     fun save(bag: Bag): Ticket {
-        return lockers.filter { it.isFull().not() }.maxBy { it.availableCapacity() }!!.save(bag)
+        val availableLockers = lockers.filter { it.isFull().not() }
+        if (availableLockers.isEmpty()) throw LockerIsFullException()
+        return availableLockers.maxBy { it.availableCapacity() }!!.save(bag)
     }
 
 }

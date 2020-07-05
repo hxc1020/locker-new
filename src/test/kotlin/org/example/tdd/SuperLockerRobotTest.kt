@@ -1,6 +1,7 @@
 package org.example.tdd
 
 import io.kotlintest.shouldBe
+import io.kotlintest.shouldThrowExactly
 import io.kotlintest.specs.StringSpec
 
 class SuperLockerRobotTest : StringSpec({
@@ -27,5 +28,18 @@ class SuperLockerRobotTest : StringSpec({
         val ticket = robot.save(givenBag)
 
         locker1.take(ticket) shouldBe givenBag
+    }
+
+    """should throw LockerIsFullException when robot save 
+        given SuperLockerRobot manage L locker1 and locker2 and both have no available capacity"""{
+        val locker1 = Locker(1, SizeType.L)
+        val locker2 = Locker(1, SizeType.L)
+        val robot = SuperLockerRobot(listOf(locker1, locker2))
+        robot.save(Bag(SizeType.L))
+        robot.save(Bag(SizeType.L))
+
+        shouldThrowExactly<LockerIsFullException> {
+            robot.save(Bag(SizeType.L))
+        }
     }
 })
