@@ -27,7 +27,8 @@ class SuperLockerRobot(private val lockers: List<Locker>) {
     }
 
     fun take(ticket: Ticket): Bag? {
-        return lockers.first { it.hasBag(ticket) }.take(ticket)
+        val lockerWhichHasBag = lockers.firstOrNull { it.hasBag(ticket) } ?: throw TicketInvalidException()
+        return lockerWhichHasBag.take(ticket)
     }
 
 }
