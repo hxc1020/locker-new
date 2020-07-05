@@ -2,7 +2,7 @@ package org.example.tdd
 
 class Locker(
         private val capacity: Int,
-        private val type: SizeType
+        val type: SizeType
 ) {
     private val store = mutableMapOf<Ticket, Bag>()
 

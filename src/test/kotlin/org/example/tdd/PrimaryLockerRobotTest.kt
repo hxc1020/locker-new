@@ -1,5 +1,6 @@
 package org.example.tdd
 
+import io.kotlintest.matchers.string.shouldStartWith
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrowExactly
 import io.kotlintest.specs.StringSpec
@@ -63,5 +64,14 @@ class PrimaryLockerRobotTest : StringSpec({
         shouldThrowExactly<TicketInvalidException> {
             robot.take(Ticket(SizeType.M))
         }
+    }
+
+    "should throw AcceptedLockerTypeWrongException when new robot given PrimaryLockerRobot and S Locker" {
+        val locker1 = Locker(1, SizeType.S)
+
+        val exception = shouldThrowExactly<AcceptedLockerTypeWrongException> {
+            PrimaryLockerRobot(listOf(locker1))
+        }
+        exception.message shouldStartWith  "Primary Locker Robot"
     }
 })
