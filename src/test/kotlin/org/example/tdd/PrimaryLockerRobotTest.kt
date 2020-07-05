@@ -6,41 +6,52 @@ import io.kotlintest.specs.StringSpec
 
 class PrimaryLockerRobotTest : StringSpec({
 
-    "should saved by locker1 and get ticket when robot save " +
-            "given PrimaryLockerRobot manage M locker1 and locker2 both have available capacity" {
-                val locker1 = Locker(1, SizeType.M)
-                val locker2 = Locker(1, SizeType.M)
-                val robot = PrimaryLockerRobot(listOf(locker1, locker2))
-                val givenBag = Bag(SizeType.M)
+    """should saved by locker1 and get ticket when robot save 
+        given PrimaryLockerRobot manage M locker1 and locker2 both have available capacity"""{
+        val locker1 = Locker(1, SizeType.M)
+        val locker2 = Locker(1, SizeType.M)
+        val robot = PrimaryLockerRobot(listOf(locker1, locker2))
+        val givenBag = Bag(SizeType.M)
 
-                val ticket = robot.save(givenBag)
+        val ticket = robot.save(givenBag)
 
-                locker1.take(ticket) shouldBe givenBag
-            }
+        locker1.take(ticket) shouldBe givenBag
+    }
 
-    "should saved by locker2 and get ticket when robot save " +
-            "given PrimaryLockerRobot manage M locker1 and locker2 and locker1 has no available capacity" {
-                val locker1 = Locker(1, SizeType.M)
-                val locker2 = Locker(1, SizeType.M)
-                locker1.save(Bag(SizeType.M))
-                val robot = PrimaryLockerRobot(listOf(locker1, locker2))
-                val givenBag = Bag(SizeType.M)
+    """should saved by locker2 and get ticket when robot save
+        given PrimaryLockerRobot manage M locker1 and locker2 and locker1 has no available capacity"""{
+        val locker1 = Locker(1, SizeType.M)
+        val locker2 = Locker(1, SizeType.M)
+        locker1.save(Bag(SizeType.M))
+        val robot = PrimaryLockerRobot(listOf(locker1, locker2))
+        val givenBag = Bag(SizeType.M)
 
-                val ticket = robot.save(givenBag)
+        val ticket = robot.save(givenBag)
 
-                locker2.take(ticket) shouldBe givenBag
-            }
+        locker2.take(ticket) shouldBe givenBag
+    }
 
-    "should throw LockerIsFullException when robot save " +
-            "given PrimaryLockerRobot manage M locker1 and locker2 and both has no available capacity" {
-                val locker1 = Locker(1, SizeType.M)
-                val locker2 = Locker(1, SizeType.M)
-                locker1.save(Bag(SizeType.M))
-                locker2.save(Bag(SizeType.M))
-                val robot = PrimaryLockerRobot(listOf(locker1, locker2))
+    """should throw LockerIsFullException when robot save
+        given PrimaryLockerRobot manage M locker1 and locker2 and both has no available capacity""" {
+        val locker1 = Locker(1, SizeType.M)
+        val locker2 = Locker(1, SizeType.M)
+        locker1.save(Bag(SizeType.M))
+        locker2.save(Bag(SizeType.M))
+        val robot = PrimaryLockerRobot(listOf(locker1, locker2))
 
-                shouldThrowExactly<LockerIsFullException> {
-                    robot.save(Bag(SizeType.M))
-                }
-            }
+        shouldThrowExactly<LockerIsFullException> {
+            robot.save(Bag(SizeType.M))
+        }
+    }
+
+    "should get bag when robot take given PrimaryLockerRobot manage M locker1 and locker2 and valid M ticket" {
+        val locker1 = Locker(1, SizeType.M)
+        val locker2 = Locker(1, SizeType.M)
+        val robot = PrimaryLockerRobot(listOf(locker1, locker2))
+        val givenBag = Bag(SizeType.M)
+
+        val ticket = robot.save(givenBag)
+
+        robot.take(ticket) shouldBe givenBag
+    }
 })

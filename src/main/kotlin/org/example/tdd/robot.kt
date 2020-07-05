@@ -5,4 +5,8 @@ class PrimaryLockerRobot(private val lockers: List<Locker>) {
         val availableLocker = lockers.firstOrNull { it.isFull().not() } ?: throw LockerIsFullException()
         return availableLocker.save(bag)
     }
+
+    fun take(ticket: Ticket): Bag? {
+        return lockers.first { it.hasBag(ticket) }.take(ticket)
+    }
 }

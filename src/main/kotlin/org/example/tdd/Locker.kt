@@ -8,6 +8,8 @@ class Locker(
 
     fun isFull() = store.size >= capacity
 
+    fun hasBag(ticket: Ticket) = store.contains(ticket)
+
     fun save(bag: Bag): Ticket {
         if (bag.type != type) throw SizeTypeMissMatchException()
         if (isFull()) throw LockerIsFullException()
@@ -19,7 +21,7 @@ class Locker(
 
     fun take(ticket: Ticket): Bag? {
         if (ticket.type != type) throw TicketTypeMissMatchException()
-        if (store.containsKey(ticket).not()) throw TicketInvalidException()
+        if (hasBag(ticket).not()) throw TicketInvalidException()
 
         return store.remove(ticket)
     }
