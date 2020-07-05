@@ -2,6 +2,7 @@ package org.example.tdd
 
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
+import io.kotlintest.shouldThrowExactly
 import io.kotlintest.specs.StringSpec
 
 class LockerRobotManagerTest : StringSpec({
@@ -49,5 +50,50 @@ class LockerRobotManagerTest : StringSpec({
 
         ticket shouldNotBe null
         ticket.type shouldBe SizeType.L
+    }
+
+    """should throw LockerIsFullException when manager save
+        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        and locker has no capacity
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        manager.save(Bag(SizeType.S))
+
+        shouldThrowExactly<LockerIsFullException> {
+            manager.save(Bag(SizeType.S))
+        }
+    }
+
+    """should throw LockerIsFullException when manager save
+        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        and primaryLockerRobot has no capacity
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        manager.save(Bag(SizeType.M))
+
+        shouldThrowExactly<LockerIsFullException> {
+            manager.save(Bag(SizeType.M))
+        }
+    }
+
+    """should throw LockerIsFullException when manager save
+        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        and superLockerRobot has no capacity
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        manager.save(Bag(SizeType.L))
+
+        shouldThrowExactly<LockerIsFullException> {
+            manager.save(Bag(SizeType.L))
+        }
     }
 })
