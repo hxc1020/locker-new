@@ -138,4 +138,30 @@ class LockerRobotManagerTest : StringSpec({
 
         manager.take(ticket) shouldBe givenBag
     }
+
+    """should throw TicketInvalidException when manager take
+        given invalid empty type ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+
+        shouldThrowExactly<TicketInvalidException> {
+            manager.take(Ticket())
+        }
+    }
+
+    """should throw TicketInvalidException when manager take
+        given invalid ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+
+        shouldThrowExactly<TicketInvalidException> {
+            manager.take(Ticket(SizeType.S))
+        }
+    }
 })

@@ -18,7 +18,7 @@ class LockerRobotManager(
             SizeType.S -> lockers.first().take(ticket)
             SizeType.M -> primaryLockerRobots.first().take(ticket)
             SizeType.L -> superLockerRobots.first().take(ticket)
-            else -> null
+            else -> throw TicketInvalidException()
         }
     }
 }
