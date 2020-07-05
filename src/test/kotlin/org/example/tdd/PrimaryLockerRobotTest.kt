@@ -54,4 +54,14 @@ class PrimaryLockerRobotTest : StringSpec({
 
         robot.take(ticket) shouldBe givenBag
     }
+
+    "should throw TicketInvalidException when robot take given PrimaryLockerRobot manage M locker1 and locker2 and invalid ticket" {
+        val locker1 = Locker(1, SizeType.M)
+        val locker2 = Locker(1, SizeType.M)
+        val robot = PrimaryLockerRobot(listOf(locker1, locker2))
+
+        shouldThrowExactly<TicketInvalidException> {
+            robot.take(Ticket(SizeType.M))
+        }
+    }
 })
