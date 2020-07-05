@@ -36,9 +36,7 @@
 | LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，都有可用容量 | 存S型包   | 存包成功，包存入Locker                                |
 | LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，都有可用容量 | 存M型包   | 存包成功，包存入PrimaryLockerRobot                    |
 | ockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，都有可用容量 | 存L型包   | 存包成功，包存入SuperLockerRobot                      |
-| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker, 无可用容量是 | 存包      | 存包失败，提示Locker已满                              |
-| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，有效的S型票 | 取包      | 取包成功                                              |
-| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，有效的M型票 | 取包      | 取包成功                                              |
-| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，有效的L型票 | 取包      | 取包成功                                              |
+| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker, 无可用容量时 | 存包      | 存包失败，提示Locker已满                              |
+| LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，有效票 | 取包      | 取包成功                                              |
 | LockerRobotManager管理S型Locker、PrimaryLockerRobot、SuperRobotLocker，无效票 | 取包      | 取包失败，提示票无效                                  |
 

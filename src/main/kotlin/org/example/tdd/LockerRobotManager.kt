@@ -12,4 +12,8 @@ class LockerRobotManager(
             SizeType.L -> superLockerRobots.first().save(bag)
         }
     }
+
+    fun take(ticket: Ticket): Bag? {
+        return lockers.first().take(ticket)
+    }
 }

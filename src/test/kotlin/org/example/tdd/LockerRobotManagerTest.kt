@@ -53,7 +53,7 @@ class LockerRobotManagerTest : StringSpec({
     }
 
     """should throw LockerIsFullException when manager save
-        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        given L bag and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
         and locker has no capacity
     """ {
         val locker = Locker(1, SizeType.S)
@@ -68,7 +68,7 @@ class LockerRobotManagerTest : StringSpec({
     }
 
     """should throw LockerIsFullException when manager save
-        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        given L bag and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
         and primaryLockerRobot has no capacity
     """ {
         val locker = Locker(1, SizeType.S)
@@ -83,7 +83,7 @@ class LockerRobotManagerTest : StringSpec({
     }
 
     """should throw LockerIsFullException when manager save
-        given manager manage L bag and 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+        given L bag and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
         and superLockerRobot has no capacity
     """ {
         val locker = Locker(1, SizeType.S)
@@ -95,5 +95,19 @@ class LockerRobotManagerTest : StringSpec({
         shouldThrowExactly<LockerIsFullException> {
             manager.save(Bag(SizeType.L))
         }
+    }
+
+    """should get bag when manager take
+        given valid ticket and manager manage 1 S locker, 1 PrimaryLockerRobot,1 SuperLockerRobot
+    """ {
+        val locker = Locker(1, SizeType.S)
+        val primaryLockerRobot = PrimaryLockerRobot(listOf(Locker(1, SizeType.M)))
+        val superLockerRobot = SuperLockerRobot(listOf(Locker(1, SizeType.L)))
+        val manager = LockerRobotManager(listOf(locker), listOf(primaryLockerRobot), listOf(superLockerRobot))
+        val givenBag = Bag(SizeType.S)
+
+        val ticket = manager.save(givenBag)
+
+        manager.take(ticket) shouldBe givenBag
     }
 })
